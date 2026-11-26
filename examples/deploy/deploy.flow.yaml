@@ -1,0 +1,31 @@
+# A merge on main reaching a running app: the example in the README.
+scene: deploy.excalidraw
+title: "Merge to running: a new image, followed by its digest"
+formats: [svg, html, mp4, gif]
+steps:
+  - zoom: all
+    caption: A developer merges a pull request that changes the app.
+    focus: [developer]
+  - zoom: [g-forge]
+    caption: CI builds the image and tags it with the commit, 3f9a2c1d. Tags never move.
+    flows:
+      - {path: [developer, ci], label: "push main@3f9a2c1d"}
+    write:
+      - {at: ci, side: bottom, size: 16, text: "docker build -t app:3f9a2c1d ."}
+  - zoom: [ci, registry]
+    caption: CI pushes the image. The registry stores it by its digest.
+    flows:
+      - {path: [ci, registry], label: "app:3f9a2c1d"}
+    badges:
+      - {at: registry, text: "sha256:9b1c…"}
+  - zoom: all
+    caption: The deploy agent in the cluster checks the registry and finds the new tag.
+    flows:
+      - {path: [deploy agent, registry], label: list tags}
+      - {path: [registry, deploy agent], label: "3f9a2c1d @ sha256:9b1c…"}
+  - zoom: [g-cluster]
+    caption: It rolls the app out by digest, so what runs is exactly what CI built.
+    flows:
+      - {path: [deploy agent, app], label: "app@sha256:9b1c…"}
+    badges:
+      - {at: app, text: "running 3f9a2c1d", side: top}
