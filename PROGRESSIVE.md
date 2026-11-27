@@ -14,7 +14,7 @@ does, finds where it falls short, and fixes the code to match.
 | Level | Establishes | Specs | Status |
 | --- | --- | --- | --- |
 | L0 Frame | The CLI's contract (arguments, output, exit codes, `--version`); the flow file's required keys, defaults and errors; one animated SVG with one clock, the same bytes every run, and a quiet stderr | `cli.md`, `flow-file.md`, `svg.md` | Green, confirmed and frozen (2026-11-27) |
-| L1 Shape | Reading the diagram: shapes, labels, naming by label or id, ambiguous and missing names, arrows; every key of the flow file validated, with errors in the flow's terms, unknown keys included (`flow-file.md` R9) | `scene.md`, `flow-file.md` | Green (2026-11-27); waiting on `asks/L1.md`, then frozen |
+| L1 Shape | Reading the diagram: shapes, labels, naming by label or id, ambiguous and missing names, arrows; every key of the flow file validated, with errors in the flow's terms, unknown keys included (`flow-file.md` R9) | `scene.md`, `flow-file.md` | Green, confirmed and frozen (2026-11-27) |
 | L1.5 Timeline | When things happen: step length, the camera's moves and its return at the loop's end, flow timing, notes and `keep` | `steps.md` R1, R2, R7 | Next |
 | L2 Rules | What a step shows, one small level each: L2.1 flows and `via`; L2.2 zoom and focus; L2.3 badges and notes; L2.4 draw-in; L2.5 captions and typing | `steps.md` | Not started |
 | L3 Outputs | The HTML player's controls; MP4, WebM and GIF from the SVG's frames; ffmpeg and gifski; widths and frame rates; reference frames compared within a tolerance | `outputs.md` | Not started |

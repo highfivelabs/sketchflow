@@ -1,5 +1,7 @@
 {
   "test/l0-cli.test.js": "3bfb5a6a9ab8fa9f7e87e45648d83f2eda08fc2079861b3b5c971aa4553aca83",
   "test/l0-flow-file.test.js": "ceec42c8ca948534e4e8f29b8798bf2a3ab53bb56e6e9068f246b92909465665",
-  "test/l0-svg.test.js": "3994246be5aa772b161e85a679f16692083aa88946b1fb1eb5685eb97b330773"
+  "test/l0-svg.test.js": "3994246be5aa772b161e85a679f16692083aa88946b1fb1eb5685eb97b330773",
+  "test/l1-flow-file.test.js": "653164573375fdddb5aced0ed42c2fdcd5c5df50cabfb3902e2099400d4f5b42",
+  "test/l1-scene.test.js": "bae4a5ca039eafb3abfe959a777c953390978bb2643485991288560d7dd2784c"
 }

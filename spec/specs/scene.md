@@ -26,18 +26,18 @@ and the arrows between them in the `.excalidraw` file.
   `deploy agent`, `Deploy  Agent`, or its id.
 
 ## Behaviors
-- **B1.** (R1, L1, assumed A1) A flow can name a rectangle, an ellipse, a diamond and a frame by their labels
-- **B2.** (R1, R4, L1, assumed A1) A deleted shape's label names nothing: naming it fails with "no shape"
-- **B3.** (R2, L1, assumed A1) Text bound to a shape labels that shape
-- **B4.** (R2, R3, L1, assumed A1) Free text labels the smallest shape it sits in: in the deploy example `deploy agent` names the agent's box, not the cluster box around it (the SVG is the same, byte for byte, as with the agent's id, and differs from the cluster's)
-- **B5.** (R3, L1, assumed A1) In the deploy example `deploy agent`, `Deploy  Agent`, the whole two-line label and the id `agent` all name the same shape: the SVGs are the same, byte for byte
-- **B6.** (R3, L1, assumed A1) The id of a text or an arrow is not a shape's name: naming one fails with "no shape"
-- **B7.** (R4, L1, assumed A1) A name two shapes share fails with where it is, "names 2 shapes", and both element ids, and writes nothing
-- **B8.** (R4, L1, assumed A1) A name no shape has fails with where it is and `no shape "<name>"`, and writes nothing
-- **B9.** (R5, L1, assumed A1) A hop between two shapes joined by an arrow follows the arrow's points; the hop the other way follows them in reverse
+- **B1.** (R1, L1, confirmed) A flow can name a rectangle, an ellipse, a diamond and a frame by their labels
+- **B2.** (R1, R4, L1, confirmed) A deleted shape's label names nothing: naming it fails with "no shape"
+- **B3.** (R2, L1, confirmed) Text bound to a shape labels that shape
+- **B4.** (R2, R3, L1, confirmed) Free text labels the smallest shape it sits in: in the deploy example `deploy agent` names the agent's box, not the cluster box around it (the SVG is the same, byte for byte, as with the agent's id, and differs from the cluster's)
+- **B5.** (R3, L1, confirmed) In the deploy example `deploy agent`, `Deploy  Agent`, the whole two-line label and the id `agent` all name the same shape: the SVGs are the same, byte for byte
+- **B6.** (R3, L1, confirmed) The id of a text or an arrow is not a shape's name: naming one fails with "no shape"
+- **B7.** (R4, L1, confirmed) A name two shapes share fails with where it is, "names 2 shapes", and both element ids, and writes nothing
+- **B8.** (R4, L1, confirmed) A name no shape has fails with where it is and `no shape "<name>"`, and writes nothing
+- **B9.** (R5, L1, confirmed) A hop between two shapes joined by an arrow follows the arrow's points; the hop the other way follows them in reverse
 
 ## Assumptions
-- **A1.** (likely) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.md`).
+- **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.md`).
 
 ## Open questions
 - Should arrows drawn curved be followed along their curve? (`README.md`,
