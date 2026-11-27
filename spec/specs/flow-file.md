@@ -42,6 +42,8 @@ reported plainly, in the file's own terms.
   and `text`; a note needs `at` (a shape or `[x, y]`) and `text`.
 - **R14.** A flow file is checked whole, names included, before anything
   is rendered, so a flow with a mistake writes nothing.
+- **R15.** `via` is for a flow whose `path` is two shapes. On a longer
+  path it is an error, since it would not say which hop it bends.
 
 ## Examples
 - R3: `deploy.flow.yaml` writes `deploy.svg`; `hosted-watcher.yaml` writes
@@ -67,6 +69,7 @@ reported plainly, in the file's own terms.
 - **B15.** (R13, R11, L1, confirmed) A badge with no `text` fails with "step 1, badge 1 has no text", and a note with no `at` with "step 1, note 1 has no at"
 - **B16.** (R14, L1, confirmed) A flow with a mistake in its last step fails without opening Chrome and writes nothing: it fails even when the Chrome named by `--chrome` does not exist
 - **B17.** (R9, R12, L1, confirmed) A flow that uses every key in the README's two key tables renders
+- **B18.** (R15, L2.1) `via` on a path of three shapes fails: "step 1, flow 1: via needs a path of two shapes"
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.md`).
