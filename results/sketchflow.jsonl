@@ -5,3 +5,4 @@
 {"id": "sketchflow-L1.5", "kind": "level", "level": "L1.5", "behaviors": 52, "green": true, "frozen": false, "notes": "steps.md B1-B12, no code change; 6 of 6 deliberate breaks caught; asks/L1.5.md open"}
 {"id": "sketchflow-L1.5-freeze", "kind": "freeze", "level": "L1.5", "behaviors": 12, "green": true, "frozen": true, "notes": "asks/L1.5.md answered: all 12 confirmed; loop close kept; pauses are look"}
 {"id": "sketchflow-L2.1", "kind": "level", "level": "L2.1", "behaviors": 60, "green": true, "frozen": false, "notes": "steps.md B13-B19, flow-file.md B18; fixed: three-shape paths cut corners, via on long path ignored; 7 of 7 deliberate breaks caught; asks/L2.1.md open"}
+{"id": "sketchflow-L2.1-freeze", "kind": "freeze", "level": "L2.1", "behaviors": 8, "green": true, "frozen": true, "notes": "asks/L2.1.md answered: all 8 confirmed; straight segments kept; via wins; arrows bound at both ends only"}
