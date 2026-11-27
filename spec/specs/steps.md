@@ -15,9 +15,9 @@ holds what they look like (`PROGRESSIVE.md`).
   room around them (default 50), easing there over 0.9 s. The camera stays
   until a later step moves it, and at the end of the loop it returns to
   where the first step began.
-- **R3.** `focus` names shapes to light; the rest of the diagram dims.
-  Without `focus`, every shape the step's flows, badges and notes name is
-  lit.
+- **R3.** `focus` names shapes to light, each ringed; the rest of the
+  diagram dims. Without `focus`, every shape the step's flows, badges and
+  notes name is lit. A step that names no shape dims nothing.
 - **R4.** `flows` are tokens that run one after another, once the camera
   has arrived. A flow's `path`
   is two or more shapes; its `label` rides with the token; `color`
@@ -36,6 +36,10 @@ holds what they look like (`PROGRESSIVE.md`).
   enough for its camera, flows, notes and caption, plus a pause.
 - **R8.** `draw` draws the diagram in, element by element, before the
   first step: strokes along their length, fills and text faded in.
+- **R9.** The camera keeps the diagram's shape: it fits the named shapes,
+  with `zoomPad` around them on the tighter side and centered on them on the
+  other. It never shows past the diagram's edge, so near an edge the view
+  slides inward, and a fit wider than the diagram shows all of it.
 
 ## Behaviors
 - **B1.** (R7, L1.5, confirmed) A step with a short caption, no camera move, nothing else and no `seconds` lasts 3 s
@@ -57,6 +61,15 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B17.** (R4, L2.1, confirmed) An arrow bound to only one of a hop's shapes, or to neither, is not followed: the hop runs straight
 - **B18.** (R4, L2.1, confirmed) A flow's `label` moves with its token, the same distance above it all the way
 - **B19.** (R4, L2.1, confirmed) A flow's token and its trail are its `color`; without `color` they are red, #e03131
+- **B20.** (R2, R9, L2.2, confirmed) `zoom: all` shows the whole diagram, unscaled
+- **B21.** (R2, R9, L2.2, confirmed) `zoom` on one shape centers it, with 50 px of the diagram around it on the tighter side and at least that on the other
+- **B22.** (R2, R9, L2.2, confirmed) `zoomPad: 0` fits the shape edge to edge on the tighter side; `zoomPad: 120` leaves 120 px
+- **B23.** (R2, R9, L2.2, confirmed) `zoom` on two shapes fits the box around both the same way
+- **B24.** (R9, L2.2, confirmed) `zoom` on a shape at the diagram's corner shows no space past the diagram's edges, and still shows all of the shape
+- **B25.** (R9, L2.2, confirmed) `zoom` on shapes whose fit is wider than the diagram shows the whole diagram
+- **B26.** (R3, L2.2, confirmed) With `focus`, only its shapes are lit and ringed; the other shapes are dimmed, even those the step's flows name
+- **B27.** (R3, L2.2, confirmed) Without `focus`, the shapes the step's flows, badges and notes name are lit and ringed, and the others dimmed
+- **B28.** (R3, L2.2, confirmed) A step that names no shape dims nothing
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
