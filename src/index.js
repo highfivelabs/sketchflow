@@ -8,6 +8,7 @@ import YAML from "yaml";
 import { loadScene } from "./scene.js";
 import { timeline, glyphs } from "./timeline.js";
 import { compile } from "./compile.js";
+import { validate } from "./validate.js";
 import { player } from "./player.js";
 import { openBrowser, exportScene } from "./browser.js";
 
@@ -21,9 +22,14 @@ export async function render(flowPath, opts = {}) {
   // Errors name what is wrong in the flow's terms; the CLI names the flow.
   const flow = YAML.parse(readText(flowPath, "no such file")) ?? {};
   const dir = path.dirname(path.resolve(flowPath));
-  if (!flow.scene) throw new Error("no scene (the .excalidraw file, relative to the flow)");
-  const scenePath = path.resolve(dir, flow.scene);
-  const sceneJson = JSON.parse(readText(scenePath, `no scene file ${flow.scene}`));
+  // The whole flow is checked, names included, before Chrome opens.
+  let sceneJson, scene;
+  const getScene = () => {
+    sceneJson ??= JSON.parse(readText(path.resolve(dir, flow.scene), `no scene file ${flow.scene}`));
+    return (scene ??= loadScene(sceneJson));
+  };
+  validate(flow, getScene);
+  getScene();
   const formats = opts.formats ?? flow.formats ?? ["svg", "html"];
   for (const f of formats) if (!FORMATS.includes(f)) throw new Error(`unknown format "${f}": ${FORMATS.join(", ")}`);
   const gifEncoder = opts.gifEncoder ?? (onPath("gifski") ? "gifski" : "ffmpeg");
@@ -33,7 +39,6 @@ export async function render(flowPath, opts = {}) {
   const outBase = path.join(outDir, name);
   fs.mkdirSync(outDir, { recursive: true });
 
-  const scene = loadScene(sceneJson);
   const b = await openBrowser({ chrome: opts.chrome });
   const written = [];
   try {

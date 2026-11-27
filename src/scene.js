@@ -29,7 +29,7 @@ export function loadScene(scene) {
       return l && (norm(l) === want || norm(l.split("\n")[0]) === want);
     });
     if (hits.length === 1) return hits[0];
-    if (hits.length > 1) throw new Error(`"${ref}" names ${hits.length} shapes; use an element id`);
+    if (hits.length > 1) throw new Error(`"${ref}" names ${hits.length} shapes (${hits.map((h) => h.id).join(", ")}); use one of their element ids`);
     throw new Error(`no shape "${ref}": name it by its element id or its label`);
   };
 

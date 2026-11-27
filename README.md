@@ -75,6 +75,10 @@ steps:
 Shapes are named by their **label** (the text in them, or its first line,
 any case) or by their Excalidraw **element id**.
 
+The whole flow is checked before anything is rendered. A key sketchflow
+does not know, a value of the wrong kind or a name no shape has is an
+error that says where it is: `step 2, flow 1: no shape "registy"`.
+
 ### Everything a step can say
 
 | Key | Meaning |

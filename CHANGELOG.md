@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- The flow file is checked whole before Chrome opens: unknown keys, values
+  of the wrong kind, a path of one shape, a badge or note with no `at` or
+  `text`. Errors say where they are (`step 2, flow 1: ...`), and a flow
+  with a mistake writes nothing.
+- A name two shapes share lists their element ids.
+- `from`/`to` in a flow, never documented, is no longer accepted; use
+  `path`.
 - `sketchflow --version`.
 - An option given without its value (`--formats` at the end) is a usage
   error (exit 2), not a crash.
