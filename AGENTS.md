@@ -15,11 +15,14 @@ otherwise
 
 The essentials, in case you can't read it:
 
-* Claim the Linear issue in coord before you edit (`coord claim HFL-n`), and
+- Claim the Linear issue in coord before you edit (`coord claim HFL-n`), and
   put its key in the branch name and PR title.
-* Open pull requests as drafts. Mark one ready only when it's finished and
+- Open pull requests as drafts. Mark one ready only when it's finished and
   green, and put it back in draft before pushing to it again.
-* Substantial work (a new app, service, CLI or public API, new behavior a
+- Get a draft to ready within about 3 hours, and don't abandon it. If it has
+  to stay in draft longer, post a PR comment saying what it waits on and
+  when it should be ready.
+- Substantial work (a new app, service, CLI or public API, new behavior a
   user can see, or more than about a day of work) uses the Spectacle method:
   workspace `docs/spectacle.md`.
 <!-- HFL-WORKSPACE: END -->
