@@ -59,10 +59,12 @@ export async function render(flowPath, opts = {}) {
           const gfps = flow.gif?.fps ?? 8, gw = flow.gif?.width ?? 1100;
           if (gifEncoder === "gifski") {
             // gifski plays the frames it is given at --fps, so take every
-            // (fps / gif fps)th frame.
+            // (fps / gif fps)th frame. --quality 100: below it, gifski's
+            // lossy inter-frame compression leaves faint ghosts of text that
+            // has faded out (seen on the deploy example's draw-in).
             const all = fs.readdirSync(frames).filter((f) => f.endsWith(".png")).sort();
             const pick = [...new Set(Array.from({ length: Math.ceil((all.length * gfps) / fps) }, (_, i) => all[Math.min(all.length - 1, Math.round((i * fps) / gfps))]))];
-            run("gifski", ["--quiet", "--fps", String(gfps), "--width", String(gw), "-o", `${outBase}.gif`, ...pick.map((f) => path.join(frames, f))]);
+            run("gifski", ["--quiet", "--quality", "100", "--fps", String(gfps), "--width", String(gw), "-o", `${outBase}.gif`, ...pick.map((f) => path.join(frames, f))]);
           } else {
             ffmpeg([...input, "-vf", `fps=${gfps},scale=${gw}:-1:flags=lanczos,split[a][b];` +
               "[a]palettegen=max_colors=96:stats_mode=full[p];[b][p]paletteuse=dither=none:diff_mode=rectangle", "-loop", "0", `${outBase}.gif`]);
