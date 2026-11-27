@@ -2,3 +2,5 @@
 {"id": "sketchflow-L0-freeze", "kind": "level", "level": "L0", "date": "2026-11-27", "behaviors": 20, "covered": 20, "green": true, "frozen": true, "notes": "Builder confirmed all 20 (asks/L0.md); unknown keys become errors at L1 (flow-file.md R9); title optional (R10)."}
 {"id": "sketchflow-L1", "kind": "level", "level": "L1", "behaviors": 40, "green": true, "frozen": false, "notes": "scene.md B1-B9, flow-file.md B7-B17; asks/L1.md open"}
 {"id": "sketchflow-L1-freeze", "kind": "freeze", "level": "L1", "behaviors": 20, "green": true, "frozen": true, "notes": "asks/L1.md answered: all 20 confirmed; from/to dropped; first mistake only"}
+{"id": "sketchflow-L1.5", "kind": "level", "level": "L1.5", "behaviors": 52, "green": true, "frozen": false, "notes": "steps.md B1-B12, no code change; 6 of 6 deliberate breaks caught; asks/L1.5.md open"}
+{"id": "sketchflow-L1.5-freeze", "kind": "freeze", "level": "L1.5", "behaviors": 12, "green": true, "frozen": true, "notes": "asks/L1.5.md answered: all 12 confirmed; loop close kept; pauses are look"}
