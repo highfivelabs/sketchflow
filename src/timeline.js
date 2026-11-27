@@ -37,7 +37,9 @@ export function timeline(flow, scene, shift, size) {
   };
 
   const typing = flow.typing ?? 55, writing = flow.writing ?? 28;
-  let t = 0, cam = FULL;
+  // `draw: true` (or seconds) draws the diagram in before the first step.
+  const draw = flow.draw === true ? 3 : Number(flow.draw) || 0;
+  let t = draw, cam = FULL;
   const steps = (flow.steps ?? []).map((st, i) => {
     if (!st.caption) throw new Error(`step ${i + 1} has no caption`);
     const start = t, from = cam;
@@ -76,8 +78,10 @@ export function timeline(flow, scene, shift, size) {
   if (!steps.length) throw new Error("a flow needs at least one step");
   const total = t;
   for (const s of steps) for (const n of s.notes) n.until = n.keep ? total : s.end;
-  steps[0].from = cam; // the last step's camera eases back to the first's
-  return { steps, total, typing, writing, title: flow.title ?? "" };
+  // The last step's camera eases back to the first's; after a draw-in, the
+  // first step starts from the whole diagram.
+  if (!draw) steps[0].from = cam;
+  return { steps, total, draw, typing, writing, title: flow.title ?? "" };
 }
 
 // Every character the flow will draw, so the exported font carries them.

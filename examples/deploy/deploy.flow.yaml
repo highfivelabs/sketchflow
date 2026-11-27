@@ -1,7 +1,7 @@
 # A merge on main reaching a running app: the example in the README.
 scene: deploy.excalidraw
 title: "Merge to running: a new image, followed by its digest"
-formats: [svg, html, mp4, gif]
+formats: [svg, html, mp4, webm, gif]
 steps:
   - zoom: all
     caption: A developer merges a pull request that changes the app.

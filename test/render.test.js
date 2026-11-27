@@ -43,3 +43,15 @@ test("the example compiles to one animated SVG and a player", async () => {
   await browser.close();
   assert.deepEqual(shownAt, [0, 1, 2, 3, 4]);
 });
+
+test("draw: the diagram draws itself in before the first step", async () => {
+  const out = fs.mkdtempSync(path.join(os.tmpdir(), "sketchflow-test-"));
+  const scene = new URL("../examples/deploy/deploy.excalidraw", import.meta.url).pathname;
+  const f = path.join(out, "drawn.flow.yaml");
+  fs.writeFileSync(f, `scene: ${JSON.stringify(scene)}\ndraw: 2\nsteps:\n  - caption: One step.\n    focus: [developer]\n`);
+  const { files } = await render(f, { formats: ["svg"], outDir: out });
+  const svg = fs.readFileSync(files[0], "utf8");
+  const meta = JSON.parse(svg.match(/data-sketchflow="([^"]+)"/)[1].replace(/&quot;/g, '"'));
+  assert.deepEqual(meta.steps, [2]);
+  assert.match(svg, /attributeName="stroke-dashoffset"/);
+});

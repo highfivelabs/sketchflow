@@ -1,16 +1,16 @@
 {
   "name": "sketchflow",
-  "version": "0.0.1",
-  "description": "Step-by-step animated flows over Excalidraw diagrams: one animated SVG, and from it an HTML player, MP4 and GIF",
+  "version": "0.1.0",
+  "description": "Step-by-step animated flows over Excalidraw diagrams: one animated SVG, and from it an HTML player, MP4, WebM and GIF",
   "license": "Apache-2.0",
   "type": "module",
   "bin": { "sketchflow": "bin/sketchflow.js" },
   "exports": { ".": "./src/index.js" },
-  "files": ["bin", "src", "README.md", "LICENSE"],
+  "files": ["bin", "src", "README.md", "CHANGELOG.md", "LICENSE"],
   "engines": { "node": ">=20" },
   "scripts": {
     "test": "node --test test/*.test.js",
-    "example": "node bin/sketchflow.js examples/deploy/deploy.flow.yaml --formats svg,html,mp4,gif"
+    "example": "node bin/sketchflow.js examples/deploy/deploy.flow.yaml --formats svg,html,mp4,webm,gif"
   },
   "keywords": ["excalidraw", "svg", "smil", "animation", "diagram", "documentation"],
   "repository": { "type": "git", "url": "git+https://github.com/highfivelabs/sketchflow.git" },
