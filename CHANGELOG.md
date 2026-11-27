@@ -7,6 +7,10 @@
   `text`. Errors say where they are (`step 2, flow 1: ...`), and a flow
   with a mistake writes nothing.
 - A name two shapes share lists their element ids.
+- A flow through three or more shapes no longer cuts the corner at a shape
+  between: the token crosses it from the arrow it came in on to the arrow
+  it leaves by.
+- `via` on a path of three or more shapes is an error; it was ignored.
 - `from`/`to` in a flow, never documented, is no longer accepted; use
   `path`.
 - `sketchflow --version`.

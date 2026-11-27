@@ -4,3 +4,4 @@
 {"id": "sketchflow-L1-freeze", "kind": "freeze", "level": "L1", "behaviors": 20, "green": true, "frozen": true, "notes": "asks/L1.md answered: all 20 confirmed; from/to dropped; first mistake only"}
 {"id": "sketchflow-L1.5", "kind": "level", "level": "L1.5", "behaviors": 52, "green": true, "frozen": false, "notes": "steps.md B1-B12, no code change; 6 of 6 deliberate breaks caught; asks/L1.5.md open"}
 {"id": "sketchflow-L1.5-freeze", "kind": "freeze", "level": "L1.5", "behaviors": 12, "green": true, "frozen": true, "notes": "asks/L1.5.md answered: all 12 confirmed; loop close kept; pauses are look"}
+{"id": "sketchflow-L2.1", "kind": "level", "level": "L2.1", "behaviors": 60, "green": true, "frozen": false, "notes": "steps.md B13-B19, flow-file.md B18; fixed: three-shape paths cut corners, via on long path ignored; 7 of 7 deliberate breaks caught; asks/L2.1.md open"}
