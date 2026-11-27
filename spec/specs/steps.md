@@ -21,9 +21,12 @@ holds what they look like (`PROGRESSIVE.md`).
 - **R4.** `flows` are tokens that run one after another, once the camera
   has arrived. A flow's `path`
   is two or more shapes; its `label` rides with the token; `color`
-  defaults to red. A hop follows the arrow drawn between its shapes;
-  without one it follows `via` bends (scene coordinates) or a straight
-  line.
+  defaults to red (#e03131). A hop follows the arrow drawn between its
+  shapes: one bound to both of them, at either end. `via` bends (scene
+  coordinates, for a path of two shapes) are followed in its place. A hop
+  with neither runs straight, from edge to edge on the line between the
+  shapes' centers. A path of three or more shapes runs every hop in turn,
+  through each shape between.
 - **R5.** `badges` appear once the step's flows are done, `at` a shape on
   a `side` (default bottom).
 - **R6.** `write` notes type themselves out in the diagram's font, `at` a
@@ -47,10 +50,19 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B10.** (R5, L1.5, confirmed) A badge appears once the step's last token has arrived, and stays to the step's end
 - **B11.** (R6, L1.5, confirmed) A note starts writing once the step's last token has arrived; with `when: start` it starts before
 - **B12.** (R6, L1.5, confirmed) A note is gone once its step ends; with `keep: true` it stays to the end of the loop
+- **B13.** (R4, L2.1, confirmed) A flow of three shapes runs one token along the first hop's arrow and then the second's, through every point of both
+- **B14.** (R4, L2.1, confirmed) A hop between two shapes with no arrow between them runs straight from the first shape's edge to the second's, on the line between their centers
+- **B15.** (R4, L2.1, confirmed) A hop with `via` runs from the first shape's edge through each bend in order to the second shape's edge, each end aimed at its nearest bend
+- **B16.** (R4, L2.1, confirmed) A hop with `via` follows the bends even where an arrow is drawn between its shapes
+- **B17.** (R4, L2.1, confirmed) An arrow bound to only one of a hop's shapes, or to neither, is not followed: the hop runs straight
+- **B18.** (R4, L2.1, confirmed) A flow's `label` moves with its token, the same distance above it all the way
+- **B19.** (R4, L2.1, confirmed) A flow's token and its trail are its `color`; without `color` they are red, #e03131
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
 - **A2.** (confirmed 2026-11-27, `asks/L1.5.md` 3) The pauses (how long a step holds after its flows or caption, how soon flows start) are look, not contract: the behaviors hold them to "at least", not to exact numbers (`project.md`, Stability: look is fluid).
 
+- **A3.** (confirmed 2026-11-27, `asks/L2.1.md` 1) A token follows an arrow's points with straight segments, also for an arrow Excalidraw draws curved. Every curved arrow in the diagrams we have runs between two points only, so it is straight anyway; arrows with bends are drawn sharp.
+
 ## Open questions
-- None yet.
+- None.

@@ -40,5 +40,5 @@ and the arrows between them in the `.excalidraw` file.
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.md`).
 
 ## Open questions
-- Should arrows drawn curved be followed along their curve? (`README.md`,
-  Limits: v0.1 approximates them with straight segments.)
+- Should arrows drawn curved be followed along their curve? Moved to
+  `steps.md` A3 (`asks/L2.1.md` 1).

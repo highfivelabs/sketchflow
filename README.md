@@ -86,7 +86,7 @@ error that says where it is: `step 2, flow 1: no shape "registy"`.
 | `caption` | What happens, a sentence or two. Types itself out in the caption bar. |
 | `zoom` | Shapes (or `all`) the camera fits, easing there over 0.9 s. It stays until a later step moves it. `zoomPad` (default 50) is the room around them. |
 | `focus` | Shapes to light; the rest dims. Default: every shape a flow, badge or note names. |
-| `flows` | Tokens, one after another. `path` is two or more shapes; `label` rides with the token; `color` (default red). A hop follows the arrow drawn between its shapes, either way round; with no arrow, `via: [[x, y], ...]` bends (scene coordinates), or else a straight line. |
+| `flows` | Tokens, one after another. `path` is two or more shapes; `label` rides with the token; `color` (default red). A hop follows the arrow drawn between its shapes, either way round, or else runs straight. On a path of two shapes, `via: [[x, y], ...]` bends (scene coordinates) route it instead, even where an arrow is drawn. |
 | `badges` | Labels that appear once the flows are done: `at` a shape, `text`, `side` (`bottom`, `top`, `left`, `right`). |
 | `write` | Text that types itself out in the diagram's font: `at` a shape (with `side`) or `[x, y]`, `text`, `size`, `color`, `when: start` (default after the flows), `keep: true` to stay to the end of the loop. |
 | `seconds` | At least this long (default 3); a step always lasts long enough for its camera, flows, notes and caption, plus a pause. |
@@ -140,6 +140,9 @@ runs the checks and the guards. Start at [`spec/README.md`](spec/README.md).
 - A token follows an arrow's points with straight segments. An Excalidraw
   arrow drawn curved through several points is approximated; draw it with
   sharp corners where the path matters.
+- A token follows an arrow only when both its ends are bound to the two
+  shapes (dropped on them in Excalidraw). An arrow that merely touches a
+  shape is passed over, and the token runs straight.
 - Shapes are found by label or id; a label on two shapes is an error,
   so use the element id there.
 - `draw` draws Excalidraw's exported strokes in z-order; it does not

@@ -52,7 +52,11 @@ export function timeline(flow, scene, shift, size) {
       const pts = [];
       for (let k = 0; k + 1 < nodes.length; k++) {
         const seg = hop(nodes[k], nodes[k + 1], nodes.length === 2 ? f.via : undefined);
-        pts.push(...(pts.length ? seg.slice(1) : seg));
+        // A hop that starts where the last one ended joins it; one that
+        // starts elsewhere (the next arrow leaves the shape from another
+        // side) runs across the shape between them.
+        const joins = pts.length && Math.hypot(seg[0][0] - pts.at(-1)[0], seg[0][1] - pts.at(-1)[1]) < 0.01;
+        pts.push(...(joins ? seg.slice(1) : seg));
       }
       const dur = Math.max(MIN_HOP * (nodes.length - 1), len(pts) / SPEED);
       const out = { pts, label: f.label ?? "", t0: ft, t1: ft + dur, color: f.color ?? "#e03131" };

@@ -87,6 +87,7 @@ export function validate(flow, scene) {
       for (const r of f.path) shape(r, w);
       str(f, "label", w); str(f, "color", w);
       if (f.via !== undefined && !(Array.isArray(f.via) && f.via.every(isPoint))) fail(w, "via must be a list of [x, y] points");
+      if (f.via !== undefined && f.path.length > 2) fail(w, "via needs a path of two shapes, so it says which hop it bends");
     });
     (st.badges ?? []).forEach((b, j) => {
       const w = `${at}, badge ${j + 1}`;
