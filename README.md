@@ -84,8 +84,8 @@ error that says where it is: `step 2, flow 1: no shape "registy"`.
 | Key | Meaning |
 | --- | --- |
 | `caption` | What happens, a sentence or two. Types itself out in the caption bar. |
-| `zoom` | Shapes (or `all`) the camera fits, easing there over 0.9 s. It stays until a later step moves it. `zoomPad` (default 50) is the room around them. |
-| `focus` | Shapes to light; the rest dims. Default: every shape a flow, badge or note names. |
+| `zoom` | Shapes (or `all`) the camera fits, easing there over 0.9 s. It stays until a later step moves it. `zoomPad` (default 50) is the room around them. The view keeps the diagram's shape and never shows past its edges. |
+| `focus` | Shapes to light and ring; the rest dims. Default: every shape a flow, badge or note names. A step that names no shape dims nothing. |
 | `flows` | Tokens, one after another. `path` is two or more shapes; `label` rides with the token; `color` (default red). A hop follows the arrow drawn between its shapes, either way round, or else runs straight. On a path of two shapes, `via: [[x, y], ...]` bends (scene coordinates) route it instead, even where an arrow is drawn. |
 | `badges` | Labels that appear once the flows are done: `at` a shape, `text`, `side` (`bottom`, `top`, `left`, `right`). |
 | `write` | Text that types itself out in the diagram's font: `at` a shape (with `side`) or `[x, y]`, `text`, `size`, `color`, `when: start` (default after the flows), `keep: true` to stay to the end of the loop. |

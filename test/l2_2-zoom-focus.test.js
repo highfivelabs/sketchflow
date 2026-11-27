@@ -37,7 +37,11 @@ const FLOW = `steps:
   - {caption: Two., zoom: [a, d]}
   - {caption: Corner., zoom: [e]}
   - {caption: Too wide., zoom: [e, f]}
-  - {caption: Focus., zoom: all, focus: [a]}
+  - caption: Focus.
+    zoom: all
+    focus: [a]
+    flows:
+      - {path: [c, d], color: "#0000aa"}
   - caption: Named.
     flows:
       - {path: [a, b], color: "#00aa00"}
@@ -183,7 +187,7 @@ async function lit(t, on, off) {
   });
 }
 
-test("steps.md#B26 with focus, its shapes are lit and ringed, and the others dimmed", async () => {
+test("steps.md#B26 with focus, only its shapes are lit and ringed; the others are dimmed, even those its flows name", async () => {
   await lit(end(8), ["a"], ["b", "c", "d", "e", "f"]);
 });
 

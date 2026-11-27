@@ -11,6 +11,8 @@
   between: the token crosses it from the arrow it came in on to the arrow
   it leaves by.
 - `via` on a path of three or more shapes is an error; it was ignored.
+- A step that names no shape (no `focus`, flows, badges or notes at a
+  shape) no longer dims the whole diagram.
 - `from`/`to` in a flow, never documented, is no longer accepted; use
   `path`.
 - `sketchflow --version`.
