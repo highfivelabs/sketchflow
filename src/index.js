@@ -1,9 +1,9 @@
 // sketchflow: a flow over an Excalidraw diagram, compiled to one animated
-// SVG; the HTML player, MP4 and GIF are made from that SVG.
+// SVG; the HTML player, MP4, WebM and GIF are made from that SVG.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import YAML from "yaml";
 import { loadScene } from "./scene.js";
 import { timeline, glyphs } from "./timeline.js";
@@ -11,10 +11,11 @@ import { compile } from "./compile.js";
 import { player } from "./player.js";
 import { openBrowser, exportScene } from "./browser.js";
 
-export const FORMATS = ["svg", "html", "mp4", "gif"];
+export const FORMATS = ["svg", "html", "mp4", "webm", "gif"];
+export const GIF_ENCODERS = ["gifski", "ffmpeg"];
 const PADDING = 24;
 
-// render("deploy.flow.yaml", { formats, outDir, chrome }) writes
+// render("deploy.flow.yaml", { formats, outDir, chrome, gifEncoder }) writes
 // <outDir>/<output>.<format> for each format and returns their paths.
 export async function render(flowPath, opts = {}) {
   const flow = YAML.parse(fs.readFileSync(flowPath, "utf8"));
@@ -24,6 +25,8 @@ export async function render(flowPath, opts = {}) {
   const sceneJson = JSON.parse(fs.readFileSync(scenePath, "utf8"));
   const formats = opts.formats ?? flow.formats ?? ["svg", "html"];
   for (const f of formats) if (!FORMATS.includes(f)) throw new Error(`unknown format "${f}": ${FORMATS.join(", ")}`);
+  const gifEncoder = opts.gifEncoder ?? (onPath("gifski") ? "gifski" : "ffmpeg");
+  if (!GIF_ENCODERS.includes(gifEncoder)) throw new Error(`unknown gif encoder "${gifEncoder}": ${GIF_ENCODERS.join(", ")}`);
   const outDir = path.resolve(opts.outDir ?? dir);
   const name = flow.output ?? path.basename(flowPath).replace(/(\.flow)?\.ya?ml$/, "");
   const outBase = path.join(outDir, name);
@@ -40,18 +43,29 @@ export async function render(flowPath, opts = {}) {
     const write = (ext, data) => { fs.writeFileSync(`${outBase}.${ext}`, data); written.push(`${outBase}.${ext}`); };
     if (formats.includes("svg")) write("svg", svg + "\n");
     if (formats.includes("html")) write("html", player(svg, flow.title));
-    if (formats.includes("mp4") || formats.includes("gif")) {
-      const frames = await grab(b.page, svg, tl.total, flow.fps ?? 12);
+    if (["mp4", "webm", "gif"].some((f) => formats.includes(f))) {
+      const fps = flow.fps ?? 12;
+      const frames = await grab(b.page, svg, tl.total, fps);
       try {
-        const input = ["-v", "error", "-y", "-framerate", String(flow.fps ?? 12), "-i", path.join(frames, "f%05d.png")];
-        if (formats.includes("mp4")) {
-          ffmpeg([...input, "-vf", `scale=${flow.mp4?.width ?? 1600}:-2:flags=lanczos`, "-c:v", "libx264", "-pix_fmt", "yuv420p",
-            "-crf", "24", "-preset", "slow", "-tune", "animation", "-movflags", "+faststart", `${outBase}.mp4`]);
-          written.push(`${outBase}.mp4`);
-        }
+        const input = ["-v", "error", "-y", "-framerate", String(fps), "-i", path.join(frames, "f%05d.png")];
+        const video = (ext, codec) => {
+          ffmpeg([...input, "-vf", `scale=${flow[ext]?.width ?? 1600}:-2:flags=lanczos`, ...codec, "-pix_fmt", "yuv420p", `${outBase}.${ext}`]);
+          written.push(`${outBase}.${ext}`);
+        };
+        if (formats.includes("mp4")) video("mp4", ["-c:v", "libx264", "-crf", "24", "-preset", "slow", "-tune", "animation", "-movflags", "+faststart"]);
+        if (formats.includes("webm")) video("webm", ["-c:v", "libvpx-vp9", "-crf", "34", "-b:v", "0", "-row-mt", "1"]);
         if (formats.includes("gif")) {
-          ffmpeg([...input, "-vf", `fps=${flow.gif?.fps ?? 8},scale=${flow.gif?.width ?? 1100}:-1:flags=lanczos,split[a][b];` +
-            "[a]palettegen=max_colors=96:stats_mode=full[p];[b][p]paletteuse=dither=none:diff_mode=rectangle", "-loop", "0", `${outBase}.gif`]);
+          const gfps = flow.gif?.fps ?? 8, gw = flow.gif?.width ?? 1100;
+          if (gifEncoder === "gifski") {
+            // gifski plays the frames it is given at --fps, so take every
+            // (fps / gif fps)th frame.
+            const all = fs.readdirSync(frames).filter((f) => f.endsWith(".png")).sort();
+            const pick = [...new Set(Array.from({ length: Math.ceil((all.length * gfps) / fps) }, (_, i) => all[Math.min(all.length - 1, Math.round((i * fps) / gfps))]))];
+            run("gifski", ["--quiet", "--fps", String(gfps), "--width", String(gw), "-o", `${outBase}.gif`, ...pick.map((f) => path.join(frames, f))]);
+          } else {
+            ffmpeg([...input, "-vf", `fps=${gfps},scale=${gw}:-1:flags=lanczos,split[a][b];` +
+              "[a]palettegen=max_colors=96:stats_mode=full[p];[b][p]paletteuse=dither=none:diff_mode=rectangle", "-loop", "0", `${outBase}.gif`]);
+          }
           written.push(`${outBase}.gif`);
         }
       } finally {
@@ -81,11 +95,14 @@ async function grab(page, svg, total, fps) {
   return dir;
 }
 
-function ffmpeg(args) {
+const onPath = (cmd) => !spawnSync(cmd, ["--version"], { stdio: "ignore" }).error;
+const ffmpeg = (args) => run("ffmpeg", args);
+
+function run(cmd, args) {
   try {
-    execFileSync("ffmpeg", args, { stdio: ["ignore", "inherit", "inherit"] });
+    execFileSync(cmd, args, { stdio: ["ignore", "inherit", "inherit"] });
   } catch (e) {
-    if (e.code === "ENOENT") throw new Error("mp4 and gif need ffmpeg on the PATH");
+    if (e.code === "ENOENT") throw new Error(cmd === "ffmpeg" ? "mp4, webm and gif need ffmpeg on the PATH" : `${cmd} is not on the PATH`);
     throw e;
   }
 }

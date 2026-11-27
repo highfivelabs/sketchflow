@@ -61,6 +61,24 @@ export function compile({ svgText, tl, W, H }) {
   const stage = mk("g", { class: "sf-stage" }, view);
   for (const child of [...src.childNodes]) stage.appendChild(document.importNode(child, true));
 
+  // The draw-in (excalidraw-animate's idea): before the first step, each
+  // element in turn has its strokes drawn along their length, and its fills,
+  // text and images faded in.
+  if (tl.draw) {
+    const els = [...stage.children].filter((e) => e.tagName === "g");
+    const d = Math.min(0.8, tl.draw / 3), gap = (tl.draw - d) / Math.max(1, els.length - 1);
+    els.forEach((el, i) => {
+      const t0 = i * gap, t1 = t0 + d;
+      for (const leaf of el.querySelectorAll("path, text, image, use, rect, ellipse, line, polyline, polygon")) {
+        const stroked = leaf.tagName === "path" && (leaf.getAttribute("stroke") ?? "none") !== "none" && !leaf.getAttribute("stroke-dasharray");
+        if (stroked) {
+          leaf.setAttribute("pathLength", 1); leaf.setAttribute("stroke-dasharray", "1 1");
+          moves(leaf, "stroke-dashoffset", [[t0, 1, false], [t1, 0, true]]);
+        } else moves(leaf, "opacity", [[t0, 0, false], [t1, 1, true]]);
+      }
+    });
+  }
+
   const FONT = "Excalifont, Virgil, 'Comic Sans MS', cursive";
   const text = (parent, attrs, content) => { const t = mk("text", { "font-family": FONT, ...attrs }, parent); t.textContent = content; return t; };
   const chip = (parent, text_, stroke, fill) => {
