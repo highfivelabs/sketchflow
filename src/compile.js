@@ -142,12 +142,15 @@ export function compile({ svgText, tl, W, H }) {
   tl.steps.forEach((s, i) => {
     const g = mk("g", { class: "sf-step" }, stage);
     shown(g, s.start, s.end);
-    // Dim everything but the focus, and ring the focus.
-    const defs = mk("defs", {}, g);
-    const mask = mk("mask", { id: `sf-focus-${i}` }, defs);
-    mk("rect", { x: -W, y: -H, width: 3 * W, height: 3 * H, fill: "white" }, mask);
-    for (const b of s.focus) mk("rect", { x: b.x - 8, y: b.y - 8, width: b.w + 16, height: b.h + 16, rx: 14, fill: "black" }, mask);
-    mk("rect", { x: -W, y: -H, width: 3 * W, height: 3 * H, fill: "white", opacity: 0.55, mask: `url(#sf-focus-${i})` }, g);
+    // Dim everything but the focus, and ring the focus. A step that names
+    // no shape has nothing to set apart, so it dims nothing.
+    if (s.focus.length) {
+      const defs = mk("defs", {}, g);
+      const mask = mk("mask", { id: `sf-focus-${i}` }, defs);
+      mk("rect", { x: -W, y: -H, width: 3 * W, height: 3 * H, fill: "white" }, mask);
+      for (const b of s.focus) mk("rect", { x: b.x - 8, y: b.y - 8, width: b.w + 16, height: b.h + 16, rx: 14, fill: "black" }, mask);
+      mk("rect", { x: -W, y: -H, width: 3 * W, height: 3 * H, fill: "white", opacity: 0.55, mask: `url(#sf-focus-${i})` }, g);
+    }
     for (const b of s.focus) mk("rect", { x: b.x - 7, y: b.y - 7, width: b.w + 14, height: b.h + 14, rx: 14, fill: "none", stroke: "#f08c00", "stroke-width": 4 }, g);
     // Tokens: a trail drawn behind each, and the token with its label.
     s.flows.forEach((f, k) => {
