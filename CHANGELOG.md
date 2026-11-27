@@ -11,6 +11,8 @@
   the browser's messages, and a failed render prints them.
 - Specs, behaviors and checks (`spec/`, `PROGRESSIVE.md`, `task check`):
   the project now follows the Spectacle method. CI runs the checks.
+- GIFs from gifski are encoded at `--quality 100`: at its default, faint
+  ghosts of faded text stayed on screen. Tested with gifski 1.34.0.
 - The deploy example draws itself in, and its title matches the diagram's.
 
 ## 0.1.0 (2026-11-26)
