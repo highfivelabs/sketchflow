@@ -30,15 +30,15 @@ it must play the same way everywhere and be seekable to any moment.
   after step 3 starts shows step 3's caption and no other.
 
 ## Behaviors
-- **B1.** (R1, R2, L0, assumed A1) The deploy example compiles to an SVG with one root `<svg>` and no nested `<svg>`
-- **B2.** (R2, L0, assumed A1) Every animation in the deploy example's SVG repeats indefinitely and lasts exactly the loop recorded in `data-sketchflow`
-- **B3.** (R2, R3, L0, assumed A1) Paused and set to half a second after each step's recorded start, the deploy example shows that step's caption group and only that one
-- **B4.** (R5, L0, assumed A1) Rendering the deploy example twice gives the same SVG, byte for byte
-- **B5.** (R6, L0, assumed A2) Rendering the deploy example as SVG prints nothing on stderr
+- **B1.** (R1, R2, L0, confirmed) The deploy example compiles to an SVG with one root `<svg>` and no nested `<svg>`
+- **B2.** (R2, L0, confirmed) Every animation in the deploy example's SVG repeats indefinitely and lasts exactly the loop recorded in `data-sketchflow`
+- **B3.** (R2, R3, L0, confirmed) Paused and set to half a second after each step's recorded start, the deploy example shows that step's caption group and only that one
+- **B4.** (R5, L0, confirmed) Rendering the deploy example twice gives the same SVG, byte for byte
+- **B5.** (R6, L0, confirmed) Rendering the deploy example as SVG prints nothing on stderr
 
 ## Assumptions
-- **A1.** (likely, cheap) What v0.1's README and code do is what the builder wants.
-- **A2.** (likely, cheap) Browser console messages are noise to someone running the CLI. v0.1 printed them every run.
+- **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants.
+- **A2.** (confirmed 2026-11-27) Browser console messages are noise to someone running the CLI. v0.1 printed them every run.
 
 ## Open questions
 - None.

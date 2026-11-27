@@ -38,19 +38,19 @@ people, CI and agents run, so its output and exit codes are a contract.
   `missing.flow.yaml`, renders `good.flow.yaml`, and exits 1.
 
 ## Behaviors
-- **B1.** (R2, L0, assumed A1) `sketchflow --help` prints the usage on stderr and exits 0
-- **B2.** (R3, L0, assumed A1) `sketchflow` with no flow prints the usage on stderr and exits 2
-- **B3.** (R3, L0, assumed A1) `sketchflow --frobnicate x.flow.yaml` prints "unknown option --frobnicate" and the usage, renders nothing, and exits 2
-- **B4.** (R3, L0, assumed A1) `sketchflow x.flow.yaml --formats` prints "--formats needs a value" and the usage, and exits 2
-- **B5.** (R1, L0, assumed A1) Rendering the deploy example as SVG prints the SVG's path on stdout, and that file exists
-- **B6.** (R4, L0, assumed A1) Given a missing flow and then the deploy example, sketchflow prints one error line that starts with the missing flow's name, still writes the example's SVG, and exits 1
-- **B7.** (R5, L0, assumed A1) `--formats svg,png` fails the flow with a message naming "png" and listing svg, html, mp4, webm and gif
-- **B8.** (R6, L0, assumed A1) `--out` into a folder that does not exist yet creates it and writes the files there
-- **B9.** (R9, L0, assumed A2) `sketchflow --version` prints `sketchflow ` followed by the version in package.json, and exits 0
+- **B1.** (R2, L0, confirmed) `sketchflow --help` prints the usage on stderr and exits 0
+- **B2.** (R3, L0, confirmed) `sketchflow` with no flow prints the usage on stderr and exits 2
+- **B3.** (R3, L0, confirmed) `sketchflow --frobnicate x.flow.yaml` prints "unknown option --frobnicate" and the usage, renders nothing, and exits 2
+- **B4.** (R3, L0, confirmed) `sketchflow x.flow.yaml --formats` prints "--formats needs a value" and the usage, and exits 2
+- **B5.** (R1, L0, confirmed) Rendering the deploy example as SVG prints the SVG's path on stdout, and that file exists
+- **B6.** (R4, L0, confirmed) Given a missing flow and then the deploy example, sketchflow prints one error line that starts with the missing flow's name, still writes the example's SVG, and exits 1
+- **B7.** (R5, L0, confirmed) `--formats svg,png` fails the flow with a message naming "png" and listing svg, html, mp4, webm and gif
+- **B8.** (R6, L0, confirmed) `--out` into a folder that does not exist yet creates it and writes the files there
+- **B9.** (R9, L0, confirmed) `sketchflow --version` prints `sketchflow ` followed by the version in package.json, and exits 0
 
 ## Assumptions
-- **A1.** (likely, cheap) What v0.1's README and code do is what the builder wants.
-- **A2.** (likely, cheap) The CLI has a `--version`; v0.1 had none.
+- **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants.
+- **A2.** (confirmed 2026-11-27) The CLI has a `--version`; v0.1 had none.
 
 ## Open questions
 - Should `--chrome` also be readable from the flow file? (No for now: a
