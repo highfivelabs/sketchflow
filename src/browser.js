@@ -33,9 +33,17 @@ export async function openBrowser({ chrome } = {}) {
       "(or SKETCHFLOW_CHROME), such as a binary from `npx playwright install chromium-headless-shell`.\n" + e.message);
   }
   const page = await browser.newPage();
-  page.on("console", (m) => { if (m.type() === "error") console.error("browser:", m.text()); });
+  // Excalidraw logs harmless errors (a font fallback, a worker it can't
+  // start) on every export. Kept, and printed only with SKETCHFLOW_DEBUG
+  // or when the render fails (spec/specs/svg.md, R6).
+  const logs = [];
+  page.on("console", (m) => {
+    if (m.type() !== "error") return;
+    if (process.env.SKETCHFLOW_DEBUG) console.error("browser:", m.text());
+    else logs.push(m.text());
+  });
   await page.goto(base + "/");
-  return { browser, page, base, close: async () => { await browser.close(); server.close(); } };
+  return { browser, page, base, logs, close: async () => { await browser.close(); server.close(); } };
 }
 
 // Excalidraw's own SVG export of a scene, fonts embedded. `glyphs` are

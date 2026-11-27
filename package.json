@@ -4,16 +4,39 @@
   "description": "Step-by-step animated flows over Excalidraw diagrams: one animated SVG, and from it an HTML player, MP4, WebM and GIF",
   "license": "Apache-2.0",
   "type": "module",
-  "bin": { "sketchflow": "bin/sketchflow.js" },
-  "exports": { ".": "./src/index.js" },
-  "files": ["bin", "src", "README.md", "CHANGELOG.md", "LICENSE"],
-  "engines": { "node": ">=20" },
-  "scripts": {
-    "test": "node --test test/*.test.js",
-    "example": "node bin/sketchflow.js examples/deploy/deploy.flow.yaml --formats svg,html,mp4,webm,gif"
+  "bin": {
+    "sketchflow": "bin/sketchflow.js"
   },
-  "keywords": ["excalidraw", "svg", "smil", "animation", "diagram", "documentation"],
-  "repository": { "type": "git", "url": "git+https://github.com/highfivelabs/sketchflow.git" },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "check": "npm test && node harness/guard.js",
+    "example": "node bin/sketchflow.js examples/deploy/deploy.flow.yaml"
+  },
+  "keywords": [
+    "excalidraw",
+    "svg",
+    "smil",
+    "animation",
+    "diagram",
+    "documentation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/highfivelabs/sketchflow.git"
+  },
   "dependencies": {
     "@excalidraw/utils": "0.1.8",
     "playwright-core": "1.56.1",

@@ -18,11 +18,12 @@ const PADDING = 24;
 // render("deploy.flow.yaml", { formats, outDir, chrome, gifEncoder }) writes
 // <outDir>/<output>.<format> for each format and returns their paths.
 export async function render(flowPath, opts = {}) {
-  const flow = YAML.parse(fs.readFileSync(flowPath, "utf8"));
+  // Errors name what is wrong in the flow's terms; the CLI names the flow.
+  const flow = YAML.parse(readText(flowPath, "no such file")) ?? {};
   const dir = path.dirname(path.resolve(flowPath));
-  if (!flow.scene) throw new Error(`${flowPath}: no scene (the .excalidraw file, relative to the flow)`);
+  if (!flow.scene) throw new Error("no scene (the .excalidraw file, relative to the flow)");
   const scenePath = path.resolve(dir, flow.scene);
-  const sceneJson = JSON.parse(fs.readFileSync(scenePath, "utf8"));
+  const sceneJson = JSON.parse(readText(scenePath, `no scene file ${flow.scene}`));
   const formats = opts.formats ?? flow.formats ?? ["svg", "html"];
   for (const f of formats) if (!FORMATS.includes(f)) throw new Error(`unknown format "${f}": ${FORMATS.join(", ")}`);
   const gifEncoder = opts.gifEncoder ?? (onPath("gifski") ? "gifski" : "ffmpeg");
@@ -72,10 +73,23 @@ export async function render(flowPath, opts = {}) {
         fs.rmSync(frames, { recursive: true, force: true });
       }
     }
+  } catch (e) {
+    // The browser's own messages help only when something went wrong.
+    if (!process.env.SKETCHFLOW_DEBUG) for (const m of b.logs) console.error("browser:", m);
+    throw e;
   } finally {
     await b.close();
   }
   return { files: written };
+}
+
+function readText(p, missing) {
+  try {
+    return fs.readFileSync(p, "utf8");
+  } catch (e) {
+    if (e.code === "ENOENT") throw new Error(missing);
+    throw e;
+  }
 }
 
 // Frames of the animated SVG itself: paused, set to each frame's time by its

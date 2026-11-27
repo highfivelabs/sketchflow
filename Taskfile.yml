@@ -1,0 +1,16 @@
+version: "3"
+
+tasks:
+  check:
+    desc: "The method's done (spec/README.md): every check, then the guards"
+    cmds:
+      - node --test --test-concurrency=1 test/*.test.js
+      - node harness/guard.js
+  guard:
+    desc: Behavior coverage and frozen checks only
+    cmds:
+      - node harness/guard.js
+  example:
+    desc: Rebuild the example's outputs
+    cmds:
+      - node bin/sketchflow.js examples/deploy/deploy.flow.yaml
