@@ -48,7 +48,7 @@ export function timeline(flow, scene, shift, size) {
     const ready = start + LEAD + (moved ? ZOOM : 0);
     let ft = ready;
     const flows = (st.flows ?? []).map((f) => {
-      const nodes = f.path ?? [f.from, f.to];
+      const nodes = f.path;
       const pts = [];
       for (let k = 0; k + 1 < nodes.length; k++) {
         const seg = hop(nodes[k], nodes[k + 1], nodes.length === 2 ? f.via : undefined);
@@ -68,7 +68,7 @@ export function timeline(flow, scene, shift, size) {
         box: typeof n.at === "string" ? box(n.at) : null, xy: typeof n.at === "string" ? null : toSvg(n.at),
         t0, t1, keep: !!n.keep };
     });
-    const named = [...(st.flows ?? []).flatMap((f) => f.path ?? [f.from, f.to]), ...(st.badges ?? []).map((b) => b.at),
+    const named = [...(st.flows ?? []).flatMap((f) => f.path), ...(st.badges ?? []).map((b) => b.at),
       ...(st.write ?? []).filter((n) => typeof n.at === "string").map((n) => n.at)];
     const focus = [...new Set(st.focus ?? named)].map(box);
     const end = Math.max(start + (st.seconds ?? 3), ft + HOLD, wt + HOLD, start + (typing ? st.caption.length / typing : 0) + 1.6);
