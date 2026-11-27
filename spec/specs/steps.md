@@ -35,22 +35,22 @@ holds what they look like (`PROGRESSIVE.md`).
   first step: strokes along their length, fills and text faded in.
 
 ## Behaviors
-- **B1.** (R7, L1.5, assumed A1) A step with a short caption, no camera move, nothing else and no `seconds` lasts 3 s
-- **B2.** (R7, L1.5, assumed A1) The same step with `seconds: 6` lasts 6 s
-- **B3.** (R7, R1, L1.5, assumed A1) A step whose caption takes longer to type than 3 s lasts until it is typed, plus at least 1 s
-- **B4.** (R7, L1.5, assumed A1) A step lasts until its last token has arrived and its last note is written, plus at least 1 s
-- **B5.** (R2, L1.5, assumed A1) A step with `zoom` moves the camera for its first 0.9 s, and the camera is still from then on
-- **B6.** (R2, L1.5, assumed A1) A step without `zoom` keeps the camera where the step before left it
-- **B7.** (R2, L1.5, assumed A1) Without `draw`, the camera at the loop's last moment is where it is at its first, so the loop has no jump
-- **B8.** (R4, R2, L1.5, assumed A1) No token moves until the step's camera has arrived
-- **B9.** (R4, L1.5, assumed A1) A step's second token appears only once its first has arrived at its last shape
-- **B10.** (R5, L1.5, assumed A1) A badge appears once the step's last token has arrived, and stays to the step's end
-- **B11.** (R6, L1.5, assumed A1) A note starts writing once the step's last token has arrived; with `when: start` it starts before
-- **B12.** (R6, L1.5, assumed A1) A note is gone once its step ends; with `keep: true` it stays to the end of the loop
+- **B1.** (R7, L1.5, confirmed) A step with a short caption, no camera move, nothing else and no `seconds` lasts 3 s
+- **B2.** (R7, L1.5, confirmed) The same step with `seconds: 6` lasts 6 s
+- **B3.** (R7, R1, L1.5, confirmed) A step whose caption takes longer to type than 3 s lasts until it is typed, plus at least 1 s
+- **B4.** (R7, L1.5, confirmed) A step lasts until its last token has arrived and its last note is written, plus at least 1 s
+- **B5.** (R2, L1.5, confirmed) A step with `zoom` moves the camera for its first 0.9 s, and the camera is still from then on
+- **B6.** (R2, L1.5, confirmed) A step without `zoom` keeps the camera where the step before left it
+- **B7.** (R2, L1.5, confirmed) Without `draw`, the camera at the loop's last moment is where it is at its first, so the loop has no jump
+- **B8.** (R4, R2, L1.5, confirmed) No token moves until the step's camera has arrived
+- **B9.** (R4, L1.5, confirmed) A step's second token appears only once its first has arrived at its last shape
+- **B10.** (R5, L1.5, confirmed) A badge appears once the step's last token has arrived, and stays to the step's end
+- **B11.** (R6, L1.5, confirmed) A note starts writing once the step's last token has arrived; with `when: start` it starts before
+- **B12.** (R6, L1.5, confirmed) A note is gone once its step ends; with `keep: true` it stays to the end of the loop
 
 ## Assumptions
-- **A1.** (likely) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
-- **A2.** (likely) The pauses (how long a step holds after its flows or caption, how soon flows start) are look, not contract: the behaviors hold them to "at least", not to exact numbers (`project.md`, Stability: look is fluid).
+- **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
+- **A2.** (confirmed 2026-11-27, `asks/L1.5.md` 3) The pauses (how long a step holds after its flows or caption, how soon flows start) are look, not contract: the behaviors hold them to "at least", not to exact numbers (`project.md`, Stability: look is fluid).
 
 ## Open questions
 - None yet.
