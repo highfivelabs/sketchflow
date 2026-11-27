@@ -40,7 +40,14 @@ GIFs are encoded with it (better colour across frames); otherwise ffmpeg's
 ```
 sketchflow <flow.yaml>... [--formats svg,html,mp4,webm,gif] [--out <dir>]
            [--chrome <path>] [--gif-encoder gifski|ffmpeg]
+sketchflow --version | --help
 ```
+
+It prints the path of each file it writes. A flow that fails is reported
+as `<flow>: <what went wrong>`, the other flows still render, and the exit
+code is 1 (2 for a usage error). `SKETCHFLOW_DEBUG=1` also shows the
+browser's own messages. The same flow gives the same SVG byte for byte, so
+rebuilding docs in CI changes nothing unless the flow or diagram did.
 
 ## A flow
 
@@ -85,7 +92,7 @@ And for the whole flow:
 | Key | Meaning |
 | --- | --- |
 | `scene` | The `.excalidraw` file, relative to the flow. Required. |
-| `title` | Shown above the captions. |
+| `title` | Shown above the captions. Leave it out when the diagram already has its title drawn in. |
 | `output` | File name without extension; default the flow's. |
 | `formats` | Any of `svg`, `html`, `mp4`, `webm`, `gif`; default `svg`, `html`. `--formats` overrides it. |
 | `draw` | `true` (3 s) or seconds: before the first step, the diagram draws itself in, element by element, strokes along their length and fills and text faded in (the idea of [excalidraw-animate](https://github.com/dai-shi/excalidraw-animate), done in SMIL on the exported SVG). |
@@ -115,6 +122,14 @@ And for the whole flow:
 The diagram sits in a clipped group rather than a nested `<svg>`, because
 browsers give a nested `<svg>` a clock of its own that the outer one does
 not move.
+
+## How it's built
+
+sketchflow is built with the Spectacle method: plain-English specs with
+rules and numbered behaviors in [`spec/`](spec/), a check for every
+behavior, frozen once confirmed, and levels in
+[`PROGRESSIVE.md`](PROGRESSIVE.md). `task check` (or `npm run check`)
+runs the checks and the guards. Start at [`spec/README.md`](spec/README.md).
 
 ## Limits
 

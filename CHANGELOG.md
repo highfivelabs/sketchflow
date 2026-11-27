@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+- `sketchflow --version`.
+- An option given without its value (`--formats` at the end) is a usage
+  error (exit 2), not a crash.
+- Errors name the flow once, and a missing flow or scene says
+  "no such file" / "no scene file" instead of Node's ENOENT text.
+- A successful render prints nothing on stderr; `SKETCHFLOW_DEBUG=1` shows
+  the browser's messages, and a failed render prints them.
+- Specs, behaviors and checks (`spec/`, `PROGRESSIVE.md`, `task check`):
+  the project now follows the Spectacle method. CI runs the checks.
+- The deploy example draws itself in, and its title matches the diagram's.
+
 ## 0.1.0 (2026-11-26)
 
 First release.
