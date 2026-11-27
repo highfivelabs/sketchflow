@@ -27,6 +27,11 @@ reported plainly, in the file's own terms.
   in before the first step.
 - **R8.** An error in a flow says what is wrong in the flow's terms: the
   key, and the step by its number counting from 1.
+- **R9.** A key sketchflow does not know, at the top level or in a step,
+  is an error naming the key and, in a step, the step: "step 3: unknown
+  key focuss". Behaviors at L1 (builder, 2026-11-27, `asks/L0.md` 2).
+- **R10.** `title` is optional. A flow whose diagram already has its title
+  drawn in leaves it out (builder, 2026-11-27, `asks/L0.md` 3).
 
 ## Examples
 - R3: `deploy.flow.yaml` writes `deploy.svg`; `hosted-watcher.yaml` writes
@@ -34,16 +39,15 @@ reported plainly, in the file's own terms.
 - R8: a second step with no caption fails with "step 2 has no caption".
 
 ## Behaviors
-- **B1.** (R1, R8, L0, assumed A1) A flow without `scene` fails with a message saying it has no scene
-- **B2.** (R1, L0, assumed A1) A flow whose `scene` is in another folder is found relative to the flow file, not the working folder
-- **B3.** (R2, R8, L0, assumed A1) A flow with an empty `steps` list fails with "a flow needs at least one step"
-- **B4.** (R2, R8, L0, assumed A1) A flow whose second step has no caption fails with "step 2 has no caption"
-- **B5.** (R3, L0, assumed A1) `x.flow.yaml` writes `x.svg`, `x.yaml` writes `x.svg`, and `output: y` writes `y.svg`
-- **B6.** (R4, L0, assumed A1) A flow with no `formats`, rendered without `--formats`, writes exactly an SVG and an HTML file
+- **B1.** (R1, R8, L0, confirmed) A flow without `scene` fails with a message saying it has no scene
+- **B2.** (R1, L0, confirmed) A flow whose `scene` is in another folder is found relative to the flow file, not the working folder
+- **B3.** (R2, R8, L0, confirmed) A flow with an empty `steps` list fails with "a flow needs at least one step"
+- **B4.** (R2, R8, L0, confirmed) A flow whose second step has no caption fails with "step 2 has no caption"
+- **B5.** (R3, L0, confirmed) `x.flow.yaml` writes `x.svg`, `x.yaml` writes `x.svg`, and `output: y` writes `y.svg`
+- **B6.** (R4, L0, confirmed) A flow with no `formats`, rendered without `--formats`, writes exactly an SVG and an HTML file
 
 ## Assumptions
-- **A1.** (likely, cheap) What v0.1's README and code do is what the builder wants.
+- **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants.
 
 ## Open questions
-- Should a key sketchflow does not know (a typo such as `focuss`) be an
-  error? v0.1 ignores it. See `asks/L0.md`, question 2.
+- None.

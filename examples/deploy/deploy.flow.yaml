@@ -1,6 +1,5 @@
 # A merge on main reaching a running app: the example in the README.
 scene: deploy.excalidraw
-title: "Merge to running: one digest, end to end"
 formats: [svg, html, mp4, webm, gif]
 draw: true
 steps:
