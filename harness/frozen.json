@@ -8,5 +8,6 @@
   "test/l2_1-flows.test.js": "720baf66212004efa73f0906c5a7f10ba18e07d8c74da01d0c4b9d96f4301039",
   "test/l2_2-zoom-focus.test.js": "0113e0ced18e03e4f2a277af0391882772ffb3de6d304297db37d2be55d478cd",
   "test/l2_3-badges-notes.test.js": "344853fb5adf2b2e6766d88de8dd6f9681724826150691252c48b04c72e51726",
-  "test/l2_4-draw-in.test.js": "343badef84706db2b16a9ddb82652ab9b130fa5b36b86d0c5599e5724d474f90"
+  "test/l2_4-draw-in.test.js": "343badef84706db2b16a9ddb82652ab9b130fa5b36b86d0c5599e5724d474f90",
+  "test/l2_5-captions.test.js": "f756196f613a51e0e93bd44a13d92c92237587459e7f6a9a8c82bce1e6a51128"
 }

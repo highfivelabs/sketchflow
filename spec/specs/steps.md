@@ -10,7 +10,9 @@ holds what they look like (`PROGRESSIVE.md`).
 
 ## Rules
 - **R1.** A step's caption types itself out in the caption bar at the
-  flow's `typing` speed, with the step's number and the step count.
+  flow's `typing` speed (55 characters a second; 0 shows it at once), from
+  the step's start, after the step's number and the step count. A caption
+  and its count show only during their step.
 - **R2.** `zoom` names shapes (or `all`) the camera fits, with `zoomPad`
   room around them (default 50), easing there over 0.9 s. The camera stays
   until a later step moves it, and at the end of the loop it returns to
@@ -52,6 +54,11 @@ holds what they look like (`PROGRESSIVE.md`).
 - **R10.** Within a step, badges and notes at the same shape and side
   stack outward from it, 4 px apart: badges first, then notes, each in the
   order listed.
+- **R11.** The caption bar sits under the diagram. `title`, when there is
+  one, shows above the captions all through the loop, smaller than them;
+  without it the bar has no title row. A caption wraps at its spaces, each
+  line as full as fits inside the bar, later lines under the count. The bar
+  is as tall as the longest caption needs, the same for every step.
 
 ## Behaviors
 - **B1.** (R7, L1.5, confirmed) A step with a short caption, no camera move, nothing else and no `seconds` lasts 3 s
@@ -97,6 +104,14 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B41.** (R8, L2.4, confirmed) A dashed stroke fades in, keeping its dashes
 - **B42.** (R8, R2, L2.4, confirmed) During the draw-in the camera shows the whole diagram, unscaled, even when the first step zooms; the first step's zoom starts from there
 - **B43.** (R8, L2.4, confirmed) The draw-in plays again at the start of every loop
+- **B44.** (R1, L2.5, confirmed) A caption types itself out from its step's start, 55 characters a second by default: so many characters in, so much of it shows
+- **B45.** (R1, L2.5, confirmed) With `typing: 0` the whole caption shows from its step's start
+- **B46.** (R1, L2.5, confirmed) Each step shows its number and the step count (`2/3`) in orange before its caption, and the caption starts after it on the same line
+- **B47.** (R11, L2.5, confirmed) A long caption wraps at its spaces, words whole and in order, each line as full as fits inside the bar, later lines starting under the count
+- **B48.** (R11, L2.5, confirmed) The caption bar is as tall as the longest caption needs, and every step's caption fits inside it
+- **B49.** (R11, L2.5, confirmed) `title` shows in the bar above the captions, smaller than them, all through the loop, the draw-in included
+- **B50.** (R11, L2.5, confirmed) Without `title` the bar has no title row: the caption sits at the bar's top
+- **B51.** (R1, L2.5, confirmed) A caption and its count show only during their step; during the draw-in, none does
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
