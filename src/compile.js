@@ -237,7 +237,9 @@ export function compile({ svgText, tl, W, H }) {
   });
   measure.remove();
   const maxLines = Math.max(...wrapped.map((w) => w.lines.length));
-  const barH = 16 + TITLE + 14 + maxLines * CLH + 14;
+  // The title's row only when there is a title (steps.md R11).
+  const top = 16 + (tl.title ? TITLE + 14 : 0);
+  const barH = top + maxLines * CLH + 14;
   root.setAttribute("height", H + barH);
   root.setAttribute("viewBox", `0 0 ${W} ${H + barH}`);
   const bar = mk("g", { transform: `translate(0 ${H})` }, root);
@@ -245,7 +247,7 @@ export function compile({ svgText, tl, W, H }) {
   mk("line", { x1: 0, y1: 1, x2: W, y2: 1, stroke: "#dee2e6", "stroke-width": 2 }, bar);
   if (tl.title) text(bar, { x: PADX, y: 16 + TITLE, "font-size": TITLE, fill: "#495057" }, tl.title);
   tl.steps.forEach((s, i) => {
-    const g = mk("g", { transform: `translate(${PADX} ${16 + TITLE + 14 + CAP})` }, bar);
+    const g = mk("g", { transform: `translate(${PADX} ${top + CAP})` }, bar);
     shown(g, s.start, s.end);
     text(g, { x: 0, y: 0, "font-size": CAP, fill: "#e8590c" }, counters[i]);
     const { lines, first } = wrapped[i];

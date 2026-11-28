@@ -96,7 +96,7 @@ And for the whole flow:
 | Key | Meaning |
 | --- | --- |
 | `scene` | The `.excalidraw` file, relative to the flow. Required. |
-| `title` | Shown above the captions. Leave it out when the diagram already has its title drawn in. |
+| `title` | Shown above the captions, all through the loop. Leave it out when the diagram already has its title drawn in; the caption bar then has no title row. |
 | `output` | File name without extension; default the flow's. |
 | `formats` | Any of `svg`, `html`, `mp4`, `webm`, `gif`; default `svg`, `html`. `--formats` overrides it. |
 | `draw` | `true` (3 s) or seconds: before the first step, and at the start of every loop, the diagram draws itself in, element by element in the scene's order: solid strokes along their length, one line after another, and fills, text and dashed strokes faded in. The camera shows the whole diagram meanwhile (the idea of [excalidraw-animate](https://github.com/dai-shi/excalidraw-animate), done in SMIL on the exported SVG). |

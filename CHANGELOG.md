@@ -19,6 +19,8 @@
   of a box's sides used to draw at once, in a fraction of its turn. The
   last element now finishes as the first step starts, instead of the
   draw-in ending on a pause.
+- A flow without `title` no longer leaves an empty row at the top of the
+  caption bar.
 - `from`/`to` in a flow, never documented, is no longer accepted; use
   `path`.
 - `sketchflow --version`.
