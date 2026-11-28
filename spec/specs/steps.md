@@ -77,13 +77,13 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B26.** (R3, L2.2, confirmed) With `focus`, only its shapes are lit and ringed; the other shapes are dimmed, even those the step's flows name
 - **B27.** (R3, L2.2, confirmed) Without `focus`, the shapes the step's flows, badges and notes name are lit and ringed, and the others dimmed
 - **B28.** (R3, L2.2, confirmed) A step that names no shape dims nothing
-- **B29.** (R5, L2.3) A badge sits 4 px off its shape on its `side`, centered along it, for each of the four sides; without `side`, below
-- **B30.** (R5, L2.3) A badge is a chip with a green (#2f9e44) border around its text
-- **B31.** (R6, L2.3) A note at a shape sits 4 px off it on its `side`, centered along it; without `side`, below
-- **B32.** (R6, L2.3) A note at `[x, y]` has its top-left corner at that point of the diagram
-- **B33.** (R6, L2.3) A note is in the diagram's font, size 18 and #1971c2 by default, or its `size` and `color`
-- **B34.** (R6, L2.3) A note's text breaks into lines at its newlines, each line centered, 1.25 sizes apart
-- **B35.** (R10, L2.3) Two badges and a note at the same shape and side stack outward in that order, 4 px apart, without overlapping
+- **B29.** (R5, L2.3, confirmed) A badge sits 4 px off its shape on its `side`, centered along it, for each of the four sides; without `side`, below
+- **B30.** (R5, L2.3, confirmed) A badge is a chip with a green (#2f9e44) border around its text
+- **B31.** (R6, L2.3, confirmed) A note at a shape sits 4 px off it on its `side`, centered along it; without `side`, below
+- **B32.** (R6, L2.3, confirmed) A note at `[x, y]` has its top-left corner at that point of the diagram
+- **B33.** (R6, L2.3, confirmed) A note is in the diagram's font, size 18 and #1971c2 by default, or its `size` and `color`
+- **B34.** (R6, L2.3, confirmed) A note's text breaks into lines at its newlines, each line centered, 1.25 sizes apart
+- **B35.** (R10, L2.3, confirmed) Two badges and a note at the same shape and side stack outward in that order, 4 px apart, without overlapping
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).

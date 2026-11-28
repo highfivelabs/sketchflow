@@ -13,6 +13,8 @@
 - `via` on a path of three or more shapes is an error; it was ignored.
 - A step that names no shape (no `focus`, flows, badges or notes at a
   shape) no longer dims the whole diagram.
+- Badges and notes on the same side of the same shape in a step stack
+  outward instead of drawing over each other.
 - `from`/`to` in a flow, never documented, is no longer accepted; use
   `path`.
 - `sketchflow --version`.
