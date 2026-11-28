@@ -28,9 +28,13 @@ holds what they look like (`PROGRESSIVE.md`).
   shapes' centers. A path of three or more shapes runs every hop in turn,
   through each shape between.
 - **R5.** `badges` appear once the step's flows are done, `at` a shape on
-  a `side` (default bottom).
+  a `side` (default bottom): a green chip 4 px off that side and centered
+  along it.
 - **R6.** `write` notes type themselves out in the diagram's font, `at` a
-  shape (with `side`) or a point, after the flows unless `when: start`.
+  shape (with `side`, placed as a badge is) or with their top-left corner
+  at a point `[x, y]` (scene coordinates), after the flows unless
+  `when: start`. `size` (default 18) and `color` (default #1971c2) set the
+  text; it breaks into lines only where the text has a newline.
   `keep: true` keeps a note to the end of the loop.
 - **R7.** A step lasts at least `seconds` (default 3), and always long
   enough for its camera, flows, notes and caption, plus a pause.
@@ -40,6 +44,9 @@ holds what they look like (`PROGRESSIVE.md`).
   with `zoomPad` around them on the tighter side and centered on them on the
   other. It never shows past the diagram's edge, so near an edge the view
   slides inward, and a fit wider than the diagram shows all of it.
+- **R10.** Within a step, badges and notes at the same shape and side
+  stack outward from it, 4 px apart: badges first, then notes, each in the
+  order listed.
 
 ## Behaviors
 - **B1.** (R7, L1.5, confirmed) A step with a short caption, no camera move, nothing else and no `seconds` lasts 3 s
@@ -70,6 +77,13 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B26.** (R3, L2.2, confirmed) With `focus`, only its shapes are lit and ringed; the other shapes are dimmed, even those the step's flows name
 - **B27.** (R3, L2.2, confirmed) Without `focus`, the shapes the step's flows, badges and notes name are lit and ringed, and the others dimmed
 - **B28.** (R3, L2.2, confirmed) A step that names no shape dims nothing
+- **B29.** (R5, L2.3, confirmed) A badge sits 4 px off its shape on its `side`, centered along it, for each of the four sides; without `side`, below
+- **B30.** (R5, L2.3, confirmed) A badge is a chip with a green (#2f9e44) border around its text
+- **B31.** (R6, L2.3, confirmed) A note at a shape sits 4 px off it on its `side`, centered along it; without `side`, below
+- **B32.** (R6, L2.3, confirmed) A note at `[x, y]` has its top-left corner at that point of the diagram
+- **B33.** (R6, L2.3, confirmed) A note is in the diagram's font, size 18 and #1971c2 by default, or its `size` and `color`
+- **B34.** (R6, L2.3, confirmed) A note's text breaks into lines at its newlines, each line centered, 1.25 sizes apart
+- **B35.** (R10, L2.3, confirmed) Two badges and a note at the same shape and side stack outward in that order, 4 px apart, without overlapping
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).

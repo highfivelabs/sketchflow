@@ -6,5 +6,6 @@
   "test/l1-scene.test.js": "bae4a5ca039eafb3abfe959a777c953390978bb2643485991288560d7dd2784c",
   "test/l1_5-steps.test.js": "e33140bcee516229ba2046601370b84918dffcbc21eceb2f0023c3d2d83e93a7",
   "test/l2_1-flows.test.js": "720baf66212004efa73f0906c5a7f10ba18e07d8c74da01d0c4b9d96f4301039",
-  "test/l2_2-zoom-focus.test.js": "0113e0ced18e03e4f2a277af0391882772ffb3de6d304297db37d2be55d478cd"
+  "test/l2_2-zoom-focus.test.js": "0113e0ced18e03e4f2a277af0391882772ffb3de6d304297db37d2be55d478cd",
+  "test/l2_3-badges-notes.test.js": "344853fb5adf2b2e6766d88de8dd6f9681724826150691252c48b04c72e51726"
 }

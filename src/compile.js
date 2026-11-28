@@ -93,10 +93,22 @@ export function compile({ svgText, tl, W, H }) {
     r.setAttribute("transform", `translate(0 ${-bb.y - bb.height / 2})`);
     return { g, w: bb.width + 18, h: bb.height + 10 };
   };
-  const anchor = (b, side, w, h) => ({
-    bottom: [b.x + b.w / 2, b.y + b.h + 4 + h / 2], top: [b.x + b.w / 2, b.y - 4 - h / 2],
-    left: [b.x - 4 - w / 2, b.y + b.h / 2], right: [b.x + b.w + 4 + w / 2, b.y + b.h / 2],
+  // Where a w × h item centers, 4 px off a box's side and `off` px further
+  // out (past the items already stacked there).
+  const anchor = (b, side, w, h, off = 0) => ({
+    bottom: [b.x + b.w / 2, b.y + b.h + 4 + off + h / 2], top: [b.x + b.w / 2, b.y - 4 - off - h / 2],
+    left: [b.x - 4 - off - w / 2, b.y + b.h / 2], right: [b.x + b.w + 4 + off + w / 2, b.y + b.h / 2],
   })[side];
+  // Within a step, items at the same shape and side stack outward
+  // (steps.md R10): place() returns the next one's spot and makes room.
+  const stacker = () => {
+    const used = new Map();
+    return (b, side, w, h) => {
+      const k = `${b.x},${b.y},${b.w},${b.h},${side}`, off = used.get(k) ?? 0;
+      used.set(k, off + (side === "top" || side === "bottom" ? h : w) + 4);
+      return anchor(b, side, w, h, off);
+    };
+  };
   let clipN = 0;
   // Text that types itself out: each line clipped by a rect that widens one
   // character at a time, from t0, at dt a character.
@@ -168,9 +180,10 @@ export function compile({ svgText, tl, W, H }) {
       mk("animateMotion", { path: d, calcMode: "spline", keyPoints: "0;0;1;1", keyTimes: `0;${kt(f.t0)};${kt(f.t1)};1`,
         keySplines: `${LINEAR};${EASE};${LINEAR}`, ...LOOP }, token);
     });
+    const place = stacker();
     for (const b of s.badges) {
       const c = chip(g, b.text, "#2f9e44", "#ebfbee");
-      const [x, y] = anchor(b.box, b.side, c.w, c.h);
+      const [x, y] = place(b.box, b.side, c.w, c.h);
       c.g.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`);
       shown(c.g, b.t0, s.end);
     }
@@ -182,7 +195,7 @@ export function compile({ svgText, tl, W, H }) {
       const tx = typed(ng, lines, n.size, lh, true, n.t0, (n.t1 - n.t0) / chars);
       tx.setAttribute("fill", n.color);
       const bb = tx.getBBox();
-      const [x, y] = n.box ? anchor(n.box, n.side, bb.width, bb.height) : [n.xy[0] + bb.width / 2, n.xy[1] + bb.height / 2];
+      const [x, y] = n.box ? place(n.box, n.side, bb.width, bb.height) : [n.xy[0] + bb.width / 2, n.xy[1] + bb.height / 2];
       ng.setAttribute("transform", `translate(${x.toFixed(1)} ${(y - bb.y - bb.height / 2).toFixed(1)})`);
       shown(ng, n.t0, n.until);
     }
