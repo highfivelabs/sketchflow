@@ -99,7 +99,7 @@ And for the whole flow:
 | `title` | Shown above the captions. Leave it out when the diagram already has its title drawn in. |
 | `output` | File name without extension; default the flow's. |
 | `formats` | Any of `svg`, `html`, `mp4`, `webm`, `gif`; default `svg`, `html`. `--formats` overrides it. |
-| `draw` | `true` (3 s) or seconds: before the first step, the diagram draws itself in, element by element, strokes along their length and fills and text faded in (the idea of [excalidraw-animate](https://github.com/dai-shi/excalidraw-animate), done in SMIL on the exported SVG). |
+| `draw` | `true` (3 s) or seconds: before the first step, and at the start of every loop, the diagram draws itself in, element by element in the scene's order: solid strokes along their length, one line after another, and fills, text and dashed strokes faded in. The camera shows the whole diagram meanwhile (the idea of [excalidraw-animate](https://github.com/dai-shi/excalidraw-animate), done in SMIL on the exported SVG). |
 | `typing` | Caption characters a second, default 55; 0 shows it at once. |
 | `writing` | Note characters a second, default 28. |
 | `fps` | Frames a second grabbed for mp4, webm and gif, default 12. |
