@@ -15,6 +15,10 @@
   shape) no longer dims the whole diagram.
 - Badges and notes on the same side of the same shape in a step stack
   outward instead of drawing over each other.
+- `draw` draws each box's lines one after another, along their length; all
+  of a box's sides used to draw at once, in a fraction of its turn. The
+  last element now finishes as the first step starts, instead of the
+  draw-in ending on a pause.
 - `from`/`to` in a flow, never documented, is no longer accepted; use
   `path`.
 - `sketchflow --version`.

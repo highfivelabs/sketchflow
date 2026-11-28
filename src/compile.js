@@ -63,18 +63,38 @@ export function compile({ svgText, tl, W, H }) {
 
   // The draw-in (excalidraw-animate's idea): before the first step, each
   // element in turn has its strokes drawn along their length, and its fills,
-  // text and images faded in.
+  // text and images faded in (steps.md R8). Invisible elements, such as the
+  // one that carries the font's glyphs, take no turn.
   if (tl.draw) {
-    const els = [...stage.children].filter((e) => e.tagName === "g");
+    const els = [...stage.children].filter((e) => e.tagName === "g" &&
+      !(e.getAttribute("fill-opacity") === "0" && e.getAttribute("stroke-opacity") === "0"));
     const d = Math.min(0.8, tl.draw / 3), gap = (tl.draw - d) / Math.max(1, els.length - 1);
     els.forEach((el, i) => {
       const t0 = i * gap, t1 = t0 + d;
+      // Excalidraw strokes every line twice, each pass its own subpath, and
+      // a dash pattern starts again at each subpath. So each subpath becomes
+      // a path of its own, drawn in turn, for a share of the element's time
+      // as long as its share of the strokes.
+      const lines = [];
       for (const leaf of el.querySelectorAll("path, text, image, use, rect, ellipse, line, polyline, polygon")) {
         const stroked = leaf.tagName === "path" && (leaf.getAttribute("stroke") ?? "none") !== "none" && !leaf.getAttribute("stroke-dasharray");
-        if (stroked) {
-          leaf.setAttribute("pathLength", 1); leaf.setAttribute("stroke-dasharray", "1 1");
-          moves(leaf, "stroke-dashoffset", [[t0, 1, false], [t1, 0, true]]);
-        } else moves(leaf, "opacity", [[t0, 0, false], [t1, 1, true]]);
+        if (!stroked) { moves(leaf, "opacity", [[t0, 0, false], [t1, 1, true]]); continue; }
+        const d_ = leaf.getAttribute("d"), parts = /m/.test(d_) ? [d_] : d_.split(/(?=M)/).map((s) => s.trim()).filter(Boolean);
+        for (const part of parts) {
+          const p = leaf.cloneNode(false);
+          p.setAttribute("d", part);
+          leaf.before(p);
+          lines.push([p, p.getTotalLength()]);
+        }
+        leaf.remove();
+      }
+      const all = lines.reduce((s, [, l]) => s + l, 0) || 1;
+      let at = t0;
+      for (const [p, l] of lines) {
+        const next = at + ((t1 - t0) * l) / all;
+        p.setAttribute("pathLength", 1); p.setAttribute("stroke-dasharray", "1 1");
+        moves(p, "stroke-dashoffset", [[at, 1, false], [next, 0, false]]);
+        at = next;
       }
     });
   }
