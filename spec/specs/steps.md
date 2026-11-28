@@ -89,14 +89,14 @@ holds what they look like (`PROGRESSIVE.md`).
 - **B33.** (R6, L2.3, confirmed) A note is in the diagram's font, size 18 and #1971c2 by default, or its `size` and `color`
 - **B34.** (R6, L2.3, confirmed) A note's text breaks into lines at its newlines, each line centered, 1.25 sizes apart
 - **B35.** (R10, L2.3, confirmed) Two badges and a note at the same shape and side stack outward in that order, 4 px apart, without overlapping
-- **B36.** (R8, L2.4) `draw: 2` takes the loop's first 2 s, and the first step starts then; `draw: true` takes 3 s; without `draw`, the first step starts at 0
-- **B37.** (R8, L2.4) At the loop's start only the diagram's background shows; by the first step's start every element is drawn, as it looks without `draw`
-- **B38.** (R8, L2.4) Elements start drawing one after another in the scene's order; the first starts at once, and the last is done as the first step starts
-- **B39.** (R8, L2.4) A solid stroke draws along its length, one line after another: partway through a box, its top is drawn and its bottom not yet
-- **B40.** (R8, L2.4) A solid fill and text fade in: partway, all of it shows, lighter
-- **B41.** (R8, L2.4) A dashed stroke fades in, keeping its dashes
-- **B42.** (R8, R2, L2.4) During the draw-in the camera shows the whole diagram, unscaled, even when the first step zooms; the first step's zoom starts from there
-- **B43.** (R8, L2.4) The draw-in plays again at the start of every loop
+- **B36.** (R8, L2.4, confirmed) `draw: 2` takes the loop's first 2 s, and the first step starts then; `draw: true` takes 3 s; without `draw`, the first step starts at 0
+- **B37.** (R8, L2.4, confirmed) At the loop's start only the diagram's background shows; by the first step's start every element is drawn, as it looks without `draw`
+- **B38.** (R8, L2.4, confirmed) Elements start drawing one after another in the scene's order; the first starts at once, and the last is done as the first step starts
+- **B39.** (R8, L2.4, confirmed) A solid stroke draws along its length, one line after another: partway through a box, its top is drawn and its bottom not yet
+- **B40.** (R8, L2.4, confirmed) A solid fill and text fade in: partway, all of it shows, lighter
+- **B41.** (R8, L2.4, confirmed) A dashed stroke fades in, keeping its dashes
+- **B42.** (R8, R2, L2.4, confirmed) During the draw-in the camera shows the whole diagram, unscaled, even when the first step zooms; the first step's zoom starts from there
+- **B43.** (R8, L2.4, confirmed) The draw-in plays again at the start of every loop
 
 ## Assumptions
 - **A1.** (confirmed 2026-11-27) What v0.1's README and code do is what the builder wants, except where an ask says otherwise (`asks/L1.5.md`).
